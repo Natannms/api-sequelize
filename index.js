@@ -7,15 +7,15 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/login', (req, res)=>{
-    res.sendFile(_dirname + "/src/pages/login.html")
+    res.sendFile(__dirname + "/src/pages/login.html")
 });
 
 app.get('/register', (req, res)=>{
-    res.sendFile(_dirname + "/src/pages/register.html")
+    res.sendFile(__dirname + "/src/pages/register.html")
 });
 
 app.get('/resetPass', (req, res)=>{
-    res.sendFile(_dirname + "/src/pages/resetpass.html")
+    res.sendFile(__dirname + "/src/pages/resetpass.html")
 });
 
 app.listen(3000, function(){
