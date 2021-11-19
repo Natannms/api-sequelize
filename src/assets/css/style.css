@@ -1,0 +1,56 @@
+/*
+    Fonts List 
+        font-family: 'Anton', sans-serif; =>  Title
+        font-family: 'EB Garamond', serif; =>  subtitle
+        font-family: 'Lobster', cursive; =>  effects
+        font-family: 'PT Serif', serif; =>   paragraph
+*/
+
+body,h1 { font-family: 'Anton', sans-serif;}
+body, html {height: 100%}
+.bgimg {
+  background-image: url('../img/undraw_Reminders_re_gtyb.png');
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.bg-purple{
+    background: #6C63FF;
+}
+
+.bg-blue{
+    background: #3A34B3;
+}
+
+.bg-exposition{
+    background: #68FF4A;
+}
+.bg-exposition-dark{
+    background: #51B33D;
+}
+.bg-dark{
+    background: #1E1F1F1F;
+}
+
+.text-purple{
+    color: #6C63FF;
+}
+
+.text-blue{
+    color: #3A34B3;
+}
+
+.text-pink-light{
+    color:#FFAD7D
+}
+
+.text-exposition{
+    color:#68FF4A;
+}
+.text-exposition-dark{
+    color:#51B33D;
+}
+.text-dark{
+    color:#1E1F1F1F;
+}
