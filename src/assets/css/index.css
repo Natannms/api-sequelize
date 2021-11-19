@@ -1,0 +1,8 @@
+.above-the-fold{
+    padding-top:100px;
+    padding-bottom:100px;
+}
+
+body{
+    background-color: blue;
+}
