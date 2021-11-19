@@ -6,7 +6,7 @@ const app = express();
 const Migration = require('./src/config/migrations');
 
 app.use(express.static(path.join(__dirname, '/src/assets/')));
-
+app.use(Migration);
 app.get('/', (req, res)=>{
     res.sendFile(__dirname + "/src/pages/index.html")
 });
