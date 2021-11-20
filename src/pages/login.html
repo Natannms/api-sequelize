@@ -3,31 +3,98 @@
 <title>website</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond:ital@1&family=Lobster&family=PT+Serif&display=swap" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Roboto:wght@100&display=swap" rel="stylesheet">
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/style.css">
 
 
-<body class="bg-purple">
-    <div class="container">
+<body class="">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12 above-the-fold"> 
-                <h1 class="text-center text-dark">Login</h1>
+            <div class="col-sm-6 col-register "> 
+              <div class="inline justify-content-center-register">
+                <img id="logo" src="/logos/Logo1x.png" alt="">
+                <h1 class="text-center text-dark">Cadastro</h1>
+              </div>
+              <div class="form-register">
+                  <div class="subtitile">Insira seus dados para efetuar o cadastro.</div>
+                  <div class="form-body">
+                        <div class="form-group">
+                          <label for="name " class="form-separator-items">Name</label>
+                          <input type="text" class="form-control form-separator-items" name="name" id="name" aria-describedby="nameHelpId" placeholder="your name">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="email" class="form-separator-items">Email</label>
+                          <input type="email" class="form-control form-separator-items" name="email" id="email" aria-describedby="emailHelpId" placeholder="name@site.com">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="password" class="form-separator-items">Password</label>
+                          <input type="password" class="form-control form-separator-items" name="password" id="password" placeholder="">
+                        </div>
+
+                        <button class="btn btn-primary-color btn-cadastrar form-separator-items">CADASTRAR</button>
+                  </div>
+              </div>
             </div>
+            <div class="col-sm-6 col-login "> 
+              <div class="inline justify-content-center-login">
+                <h1 class="text-center text-dark">Login</h1>
+              </div>
+              <div class="form-login">
+                  <div class="subtitile">Já possui cadastro? Entre na sua conta!</div>
+                  <div class="form-body">
+                        <div class="form-group">
+                          <label for="email" class="form-separator-items">Email</label>
+                          <input type="email" class="form-control form-separator-items" name="email" id="email" aria-describedby="emailHelpId" placeholder="name@site.com">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="password" class="form-separator-items">Password</label>
+                          <input type="password" class="form-control form-separator-items" name="password" id="password" placeholder="">
+                        </div>
+
+                        <button class="btn btn-primary-color btn-cadastrar form-separator-items">ENTRAR</button>
+                  </div>
+              </div>
+            </div>
+            
         </div>
     </div>
+    <script>
+        var logos =[
+            'effects/logo/Logo1x.png',
+            'effects/logo/Logo1x-parte1.png',
+            'effects/logo/Logo1x-parte2.png',
+            'effects/logo/Logo1x-parte3.png',
+            // 'effects/logo/Logo1x-parte4.png',
+        ];
+        var i = -1;
+        setInterval(() => {
+            if(i >= 3){
+                i = -1;
+            }
+
+           i++
+            document.getElementById('logo').src = logos[i];
+        }, 350);
+    </script>
 </body>
 </html>
