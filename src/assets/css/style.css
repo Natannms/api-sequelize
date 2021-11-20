@@ -1,12 +1,13 @@
 /*
     Fonts List 
-        font-family: 'Anton', sans-serif; =>  Title
-        font-family: 'EB Garamond', serif; =>  subtitle
-        font-family: 'Lobster', cursive; =>  effects
-        font-family: 'PT Serif', serif; =>   paragraph
+       font-family: 'Questrial', sans-serif;
+font-family: 'Roboto', sans-serif;
 */
 
-body,h1 { font-family: 'Anton', sans-serif;}
+body,h1 {   font-family: 'Questrial', sans-serif;}
+body,p {   font-family: 'Roboto', sans-serif;}
+body {font-family: 'Roboto', sans-serif;}
+
 body, html {height: 100%}
 .bgimg {
   background-image: url('../img/undraw_Reminders_re_gtyb.png');
@@ -54,3 +55,15 @@ body, html {height: 100%}
 .text-dark{
     color:#1E1F1F1F;
 }
+
+.btn-primary-color{
+    background:#FFE600;
+    color:#1E1F1F;
+    boder: solid 1px #FFe600;
+}
+.btn-primary-color:hover{
+    background:#1E1F1F;
+    color:#FFe600;
+    boder: solid 1px #1E1F1F;
+}
+
