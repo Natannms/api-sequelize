@@ -71,30 +71,42 @@
                           <input type="password" class="form-control form-separator-items" name="password" id="password" placeholder="">
                         </div>
 
-                        <button class="btn btn-primary-color btn-cadastrar form-separator-items">ENTRAR</button>
+                        <button onclick="submit()" class="btn btn-primary-color btn-cadastrar form-separator-items">ENTRAR</button>
                   </div>
               </div>
             </div>
             
         </div>
     </div>
+    <script src="/js/effects.js"></script>
     <script>
-        var logos =[
-            'effects/logo/Logo1x.png',
-            'effects/logo/Logo1x-parte1.png',
-            'effects/logo/Logo1x-parte2.png',
-            'effects/logo/Logo1x-parte3.png',
-            // 'effects/logo/Logo1x-parte4.png',
-        ];
-        var i = -1;
-        setInterval(() => {
-            if(i >= 3){
-                i = -1;
-            }
+      var URL_BASE = "http://localhost:3000";
+     
 
-           i++
-            document.getElementById('logo').src = logos[i];
-        }, 350);
+      function submit(){
+            // GET request for remote image in node.js
+            axios({
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+                    },
+                    method: 'post',
+                    url: `${URL_BASE}/login`,
+                    data: {
+                        email: body.email.value,
+                    }
+                })
+                    .then(function (response) {
+                        if (response.data.mensagem) {
+                            console.log(response.data)
+                        }
+                    });
+      }
+
+
+
+
+      logoEffect();
     </script>
 </body>
 </html>
