@@ -55,6 +55,9 @@ app.get('/response', (req, res)=>{
 app.get('/owner', (req, res)=>{
     res.sendFile(__dirname + "/src/pages/owner/index.html")
 });
+app.get('/owner-dashaboard', (req, res)=>{
+    res.sendFile(__dirname + "/src/pages/owner/dashaboard.html")
+});
 app.listen(3000, function(){
     console.log('App listen in pornt 300 => http://localhost:3000');
     console.log('App listen in pornt 300 => http://localhost:3000/migrate');
