@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Questrial&family=Roboto:wght@100&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <link rel="stylesheet" href="/css/login.css">
 <link rel="stylesheet" href="/css/style.css">
@@ -37,17 +38,17 @@
                   <div class="form-body">
                         <div class="form-group">
                           <label for="name " class="form-separator-items">Name</label>
-                          <input type="text" class="form-control form-separator-items" name="name" id="name" aria-describedby="nameHelpId" placeholder="your name">
+                          <input type="text" class="form-control form-separator-items" name="cad_name" id="cad_name" aria-describedby="nameHelpId" placeholder="your name">
                         </div>
 
                         <div class="form-group">
                           <label for="email" class="form-separator-items">Email</label>
-                          <input type="email" class="form-control form-separator-items" name="email" id="email" aria-describedby="emailHelpId" placeholder="name@site.com">
+                          <input type="email" class="form-control form-separator-items" name="cad_email" id="cad_email" aria-describedby="emailHelpId" placeholder="name@site.com">
                         </div>
 
                         <div class="form-group">
                           <label for="password" class="form-separator-items">Password</label>
-                          <input type="password" class="form-control form-separator-items" name="password" id="password" placeholder="">
+                          <input type="password" class="form-control form-separator-items" name="cad_password" id="cad_password" placeholder="">
                         </div>
 
                         <button class="btn btn-primary-color btn-cadastrar form-separator-items">CADASTRAR</button>
@@ -58,7 +59,7 @@
               <div class="inline justify-content-center-login">
                 <h1 class="text-center text-dark">Login</h1>
               </div>
-              <div class="form-login">
+              <div id="form-login" class="form-login">
                   <div class="subtitile">Já possui cadastro? Entre na sua conta!</div>
                   <div class="form-body">
                         <div class="form-group">
@@ -71,6 +72,8 @@
                           <input type="password" class="form-control form-separator-items" name="password" id="password" placeholder="">
                         </div>
 
+                        <a href="/resetPass" class="btn" style="color:rgb(0, 173, 66)">Forgot Password?</a><br>
+
                         <button onclick="submit()" class="btn btn-primary-color btn-cadastrar form-separator-items">ENTRAR</button>
                   </div>
               </div>
@@ -81,9 +84,22 @@
     <script src="/js/effects.js"></script>
     <script>
       var URL_BASE = "http://localhost:3000";
-     
+      var email = document.getElementById("email")
+      var password = document.getElementById("password");
+
+      function validate() {
+            if (password.value === "" || email.value === "") {
+                return Promise.resolve("fieldsNull");
+            }
+
+            if (password.value != "" && email.value != "") {
+                return Promise.resolve('success');
+            }
+        }
 
       function submit(){
+        validate().then((response)=>{
+          if(response === "success"){
             // GET request for remote image in node.js
             axios({
                     headers: {
@@ -93,14 +109,32 @@
                     method: 'post',
                     url: `${URL_BASE}/login`,
                     data: {
-                        email: body.email.value,
+                        email:email.value,
+                        password:email.value,
                     }
-                })
-                    .then(function (response) {
-                        if (response.data.mensagem) {
-                            console.log(response.data)
-                        }
-                    });
+                }).then(function (response) {
+                  if(response.data){
+                    localStorage.setItem("user", response.data.user.id)
+                  }
+              
+                    if (response.data.user.id) { 
+                        document.getElementById('form-login').innerHTML =  "";
+                            var div = document.createElement(div);
+                            div.setAttribute('class','spinner-border text-warning spinner-config')
+                            document.getElementById('form-login').appendChild(div)
+                        setTimeout(() => {
+                          window.location.href = response.data.user.redirect
+                        }, 5000);
+
+
+                    }
+                });
+          }else{
+            alert('verifique os campos vazios')
+          }
+        })
+
+          
       }
 
 

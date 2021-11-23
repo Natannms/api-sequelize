@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<title>website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond:ital@1&family=Lobster&family=PT+Serif&display=swap"
+    rel="stylesheet">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/css/owner.index.css">
+
+
+<body class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 above-the-fold">
+                <div class="box-owner">
+                    <img class="mx-auto d-block" id="logo" src="/logos/Logo1-black-1x.png" alt="">
+                    <h1 class="text-center text-dark" id="title">Seja Bem vindo</h1>
+                    <p class="text-center" id="paragraph" style="font-size:25px; margin-top: 20px;">Fique por dentro de tudo</p>
+                    <img style="margin-top:80px;height:300px" id="image" class="mx-auto d-block" id="logo"
+                        src="/logos/settings0.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var situation = JSON.parse(localStorage.getItem('situation'));
+        if (situation.next) {
+            var image = document.getElementById('image');
+            var steps = [
+                {
+                    title: "Titulo1",
+                    paragraph: `
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum ab suscipit sunt quidem illo, delectus in modi
+                    necessitatibus! Consequatur voluptatibus fugit nulla atque excepturi! Blanditiis pariatur hic praesentium. Animi,
+                    odio!`,
+                },
+                {
+                    title: "Titulo2",
+                    paragraph: `
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum ab suscipit sunt quidem illo, delectus in modi
+                    necessitatibus! Consequatur voluptatibus fugit nulla atque excepturi! Blanditiis pariatur hic praesentium. Animi,
+                    odio!`,
+                },
+                {
+                    title: "Titulo3",
+                    paragraph: `
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum ab suscipit sunt quidem illo, delectus in modi
+                    necessitatibus! Consequatur voluptatibus fugit nulla atque excepturi! Blanditiis pariatur hic praesentium. Animi,
+                    odio!`,
+                },
+                {
+                    title: "Titulo4",
+                    paragraph: `
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum ab suscipit sunt quidem illo, delectus in modi
+                    necessitatibus! Consequatur voluptatibus fugit nulla atque excepturi! Blanditiis pariatur hic praesentium. Animi,
+                    odio!`,
+                },
+                {
+                    title: "Titulo5",
+                    paragraph: `
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum ab suscipit sunt quidem illo, delectus in modi
+                    necessitatibus! Consequatur voluptatibus fugit nulla atque excepturi! Blanditiis pariatur hic praesentium. Animi,
+                    odio!`,
+                },
+                {
+                    title: "Titulo6",
+                    paragraph: `
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum ab suscipit sunt quidem illo, delectus in modi
+                    necessitatibus! Consequatur voluptatibus fugit nulla atque excepturi! Blanditiis pariatur hic praesentium. Animi,
+                    odio!`,
+                }
+            ];
+            var index = 0; 
+            setInterval(() => {
+               
+                //setSteps info
+                document.getElementById('title').innerHTML = steps[index].title.toUpperCase();
+                document.getElementById('paragraph').innerHTML = steps[index].paragraph
+                image.src = `/img/settings${index}.png`;
+
+                console.log(steps[index].title)
+              if(index >= 5){
+                  index = -1
+              }
+              index ++
+            }, 2000);
+          
+           
+        }
+    </script>
+</body>
+
+</html>

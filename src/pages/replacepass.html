@@ -30,22 +30,21 @@
             <div class="col-sm-6 col-register ">
                 <div class="inline justify-content-center-register">
                     <img id="logo" src="/logos/Logo1x.png" alt="">
-                    <h1 class="text-center text-dark">Forgot Password</h1>
+                    <h1 class="text-center text-dark">Nova Senha</h1>
                 </div>
                 <div class="form-register">
-                    <div class="subtitile">Informe seu email.</div>
-
-                    <div class="alert alert-success alert-dismissible fade show">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Success!</strong>
-                        <div id="mensagem"></div>
-                    </div>
-
+                    <div class="subtitile">Insira Sua nova senha.</div>
                     <div class="form-body">
 
                         <div class="form-group">
-                            <label for="email" class="form-separator-items">Email</label>
-                            <input type="email" class="form-control form-separator-items" name="email" id="email"
+                            <label for="password" class="form-separator-items">Password</label>
+                            <input type="password" class="form-control form-separator-items" name="password"
+                                id="password" placeholder="" require>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm" class="form-separator-items">Confirm password</label>
+                            <input type="password" class="form-control form-separator-items" name="confirm" id="confirm"
                                 placeholder="" require>
                         </div>
 
@@ -61,23 +60,26 @@
     <script>
 
         var URL_BASE = "http://localhost:3000";
-        var email = document.getElementById("email");
-
+        var confirm = document.getElementById("confirm");
+        var password = document.getElementById("password");
         function validate() {
-            if (email.value === "") {
+            if (password.value === "" || confirm.value === "") {
                 return Promise.resolve("fieldsNull");
             }
 
+            if (password.value != confirm.value) {
+                return Promise.resolve('notEnquals');
+            }
 
-            if (email.value != "") {
-                return Promise.resolve('validate');
+            if (password.value != "" && confirm.value != "" && password.value === confirm.value) {
+                return Promise.resolve('enquals');
             }
         }
 
         function submit() {
             validate().then((response) => {
-                if (response != "validate") {
-                    alert('Campos Vazios ou inválido!')
+                if (response === 'fieldsNull' || response === 'notEquals') {
+                    alert('Campos Vazios ou as senhas não são idênticas !')
                 } else {
                     console.log('requeting')
                     //    GET request for remote image in node.js
@@ -86,16 +88,18 @@
                             "Access-Control-Allow-Origin": "*",
                             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
                         },
-                        method: 'post',
-                        url: `${URL_BASE}/controll/reset-password`,
+                        method: 'put',
+                        url: `${URL_BASE}/updatePass`,
                         data: {
-                            email: email.value,
+                            id:document.cookie.split('=')[1],
+                            password: password.value,
                         }
                     }).then(function (response) {
-                        console.log(response)
-                        if (response.data.mensagem) {
-                            document.getElementById('mensagem').innerHTML = response.data.mensagem
-                        }
+                           console.log(response)
+                           if(response.data.next){
+                               localStorage.setItem("situation", JSON.stringify(response.data))
+                               window.location.href = response.data.redirect;
+                           }
                     });
                 }
             })
