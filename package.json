@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "react-app": "cd react/react-musician && npm start",
+    "vue-app": "cd vue/musician && npm run vuejs",
+    "react": "concurrently \"npm run start\"  \"npm run react\"",
+    "vue": "concurrently \"npm run start\"  \"npm run client\""
   },
   "author": "",
   "license": "MIT",
@@ -20,6 +24,7 @@
     "nodemon": "^2.0.14",
     "paginate-array": "^2.1.0",
     "path": "^0.12.7",
-    "sequelize": "^6.8.0"
+    "sequelize": "^6.8.0",
+    "vue": "^2.6.14"
   }
 }
