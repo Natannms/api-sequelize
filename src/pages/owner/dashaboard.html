@@ -21,17 +21,16 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-      <!-- css interno -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- css interno -->
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/owner.index.css">
 
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="/logos/Logo1-black-horizontal-1x.png"  alt="Logo" class="nav-logo">
-          </a>
+            <img src="/logos/Logo1-black-horizontal-1x.png" alt="Logo" class="nav-logo">
+        </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -59,35 +58,202 @@
         </div>
     </nav>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12 col-padding-center">
-                <h5>Próximos eventos</h5>
+        <div class="row" >
+            <div class="col-sm-12 col-padding-center" >
+                <h4 class="">Próximos eventos</h4>
             </div>
-           <div class="col-sm-4 ">
-            <div class="card-date-info" >
-                <div class="date-info" style="display: flex;">
-                    <div class="card-info">
-                        <h4 class="card-title event-title">OG3</h4>
-                        <p class="card-text event-date"> 30/07/2022 : 20:00</p>
-                        <h5>Local</h5>
-                        <p>Clube Campestre</p> <br>
-                        <h5>Situação</h5>
-                        <p class="card-text-success">Confirmado</p>
-                    </div>
-                    <div>
-                        <span class="material-icons arrow_circle_right text-yellow">
-                            arrow_circle_right
-                        </span> <br>
-                        <span style="margin-top: 125px;" class="material-icons arrow_circle_right card-text-success-situation">
-                            check_circle_outline
-                        </span>
-                    </div>
+            <div class="col-sm-10"></div>
+            <div class="col-sm-2">
+                <div class="row-controll">
+                    <ul id="pagination" class="pagination">
+                        <li onclick="pagination.prev(JSON.parse(localStorage.getItem('eventsPagination')).currentPage)" class="item-pagination btn btn-light"><span class="material-icons">
+                            arrow_back_ios
+                            </span></li>
+
+                        <li onclick="pagination.next(JSON.parse(localStorage.getItem('eventsPagination')).currentPage)" class="item-pagination btn btn-light"><span class="material-icons">
+                            arrow_forward_ios
+                            </span></li>
+                      </ul>
                 </div>
-                
             </div>
-           </div>
+        </div>
+        <div class="row" id="row-events">
+
+        </div>
+        <div class="row" id="row-musicians">
+            <div class="col-sm-12 col-padding-center">
+                <h5>Músicos em destaque</h5>
+            </div>
         </div>
     </div>
+    <script src="/js/requests.js"></script>
+    <script src="/js/effects.js"></script>
+    <script>
+
+function getEvents(offset = null) {
+    let getEvents = fetch(`${URL_BASE}/eventsPaginated`, {
+        method: 'POST',
+        headers: {
+            'Content-Type':
+                'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+            all: false,
+            limit: 3,
+            page:1,
+            offset:offset
+        })
+    });
+    validate('events').then((response) => {
+        if (!response) {
+            alert('Você não tem permissões para realizar tarefas em dashboard !')
+        } else {
+            getEvents.then((response) => {
+                response.json().then((data) => {
+                    // console.log(data)
+                    localStorage.setItem('events', JSON.stringify(data.Event.data));
+                    localStorage.setItem('eventsPagination', JSON.stringify({
+                        currentPage:data.Event.currentPage,
+                        perPage:data.Event.perPage,
+                        total:data.Event.total,
+                        totalPages:data.Event.totalPages,
+                        totalEvents:data.totalEvents,
+                   }))
+                })
+            })
+        }
+    })
+}
+        getEvents()
+        let Events = JSON.parse(localStorage.getItem('events'))
+      
+        function addEvents(Events){
+            console.log(Events)
+            if(Events){
+                 Events.forEach(Event => {
+                    let divCol4 = document.createElement('div');
+                    divCol4.setAttribute('id', 'events-col-sm-3');
+                    divCol4.setAttribute('class', 'col-sm-3');
+                    divCol4.setAttribute('style', 'margin-left: 110px');
+
+                            let card_date_info = document.createElement('div');
+                            card_date_info.setAttribute('class','card-date-info')
+                            divCol4.appendChild(card_date_info);
+
+                            let date_info = document.createElement('div');
+                            date_info.setAttribute('class','date-info')
+                            date_info.setAttribute('style','display: flex')
+                            card_date_info.appendChild(date_info);
+
+
+                            let card_info = document.createElement('div');
+                            card_info.setAttribute('class','card-info');
+                            //titulo
+                                var card_title_event_title = document.createElement('h4');
+                                card_title_event_title.setAttribute('class', 'card-title event-title')
+                                card_title_event_title.innerHTML = Event.name;
+                                card_info.appendChild(card_title_event_title);
+
+
+                            //data e hora
+                                var card_text_event_date = document.createElement('p');
+                                card_text_event_date.setAttribute('class', 'card-text event-date')
+                                card_text_event_date.innerHTML = `${Event.date_start} : ${Event.hour_start}`;
+                                card_info.appendChild(card_text_event_date);
+
+                            // localTitle e local
+                                var locationTitle = document.createElement('h5');
+                                locationTitle.innerHTML = 'Local';
+
+                                var locationText = document.createElement('p');
+                                locationText.setAttribute('style', 'color:#077878')
+                                locationText.innerHTML = Event.location
+
+                                card_info.appendChild(locationTitle);
+                                card_info.appendChild(locationText);
+                            //situation Title e situation
+                                var situationTitle = document.createElement('h5');
+                                situationTitle.innerHTML = 'Status'
+                                var situationText = document.createElement('p');
+
+                            
+                                situationText.innerHTML = Event.situation
+                                card_info.appendChild(situationTitle);
+                                card_info.appendChild(situationText);
+                            
+
+
+                            let card_icons = document.createElement('div');
+                            card_icons.setAttribute('class','card-icons');
+
+                            //iconde de nextario
+                            let arrow_circle_right = document.createElement('span');
+                            arrow_circle_right.setAttribute('class','material-icons arrow_circle_right text-yellow')
+                            arrow_circle_right.innerHTML = 'arrow_circle_right'
+
+
+                            //icone de confirmação
+                            let check_circle_outline = document.createElement('span');
+                        
+                            switch (Event.situation) {
+                                    case 'cancelado':
+                                        situationText.setAttribute('class', 'text-danger')
+                                        check_circle_outline.setAttribute('class','material-icons arrow_circle_right card-text-danger-situation')
+                                        break;
+                                    case 'confirmado':
+                                        situationText.setAttribute('class', 'text-success')
+                                        check_circle_outline.setAttribute('class','material-icons arrow_circle_right card-text-success-situation')
+                                        break;
+                                    case 'pendente':
+                                        situationText.setAttribute('class', 'text-warning')
+                                        check_circle_outline.setAttribute('class','material-icons arrow_circle_right card-text-warning-situation')
+                                        break;
+                                
+                                    default:  situationText.setAttribute('class', 'text-info')
+                                        break;
+                                }
+
+                            check_circle_outline.innerHTML = 'check_circle_outline'
+                            check_circle_outline.setAttribute('style', 'margin-top: 125px')
+
+
+                            card_icons.appendChild(arrow_circle_right);
+                            card_icons.appendChild(check_circle_outline);
+                            
+                            date_info.appendChild(card_info);
+                            date_info.appendChild(card_icons);
+                            document.getElementById('row-events').appendChild(divCol4)
+
+                        
+                        });
+
+            } else{
+                location.reload(true);
+            }
+        }
+
+           
+            addEvents(Events)
+              
+         let pagination = {
+            next:(currentPage)=>{
+                if(slideCards()){
+                    setTimeout(() => {
+                        console.log('research events in position' + currentPage)
+                    }, 3000);
+                }
+                
+            },
+            prev:(currentPage)=>{
+                if(slideCards()){
+                    setTimeout(() => {
+                        console.log('research events in position' + currentPage)
+                    }, 3000);
+                }
+                
+            },
+        }
+    </script>
 </body>
 
 </html>

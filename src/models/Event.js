@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
+const Band = require('./Band');
 const Event = db.define('Event', {
     id: {
         type: Sequelize.INTEGER,
@@ -15,11 +16,11 @@ const Event = db.define('Event', {
         allowNull: false,
         unique:true
     },
-    date: {
+    date_start: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    hour: {
+    date_finished: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -33,9 +34,21 @@ const Event = db.define('Event', {
         allowNull: false,
         defaultValue: true
     },
-    band_members_id:{
+    bands_id:{
         type: Sequelize.JSON,
         allowNull: true,
+    },
+    situation:{
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    hour_start:{
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    hour_finished:{
+        type:Sequelize.STRING,
+        allowNull: false,
     }
 })
 

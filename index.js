@@ -10,6 +10,8 @@ const cors = require('cors');
 //controllers and migrations
 const Migration = require('./src/config/migrations');
 const UserController = require('./src/controller/UserController');
+const EventController = require('./src/controller/EventController');
+const BandsController = require('./src/controller/BandsController');
 
 //Use Path
 app.use(express.static(path.join(__dirname, '/src/assets/')));
@@ -25,6 +27,8 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(Migration);
 app.use(UserController);
+app.use(EventController);
+app.use(BandsController);
 
 
 //rotas para paginas
@@ -61,5 +65,9 @@ app.get('/owner-dashaboard', (req, res)=>{
 app.listen(3000, function(){
     console.log('App listen in pornt 300 => http://localhost:3000');
     console.log('App listen in pornt 300 => http://localhost:3000/migrate');
-    console.log('App listen in pornt 300 => http://localhost:3000/seeder');
+    console.log('Crie novas http://localhost:3000/seeder');
+    console.log('Crie novas Membros de banda http://localhost:3000/membersBand/50');
+    console.log('Crie novos Eventos http://localhost:3000/eventSeeder/50');
+    console.log('Crie novos Usuarios http://localhost:3000/userSeeder');
+    console.log('Crie novas Bandas http://localhost:3000/bandSeeder/50');
 })
